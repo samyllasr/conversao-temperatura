@@ -34,5 +34,5 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            samyllasr/aula-conversao-temperatura:v1
+            samyllasr/aula-conversao-temperatura:${{github.run_number}}
             samyllasr/aula-conversao-temperatura:latest
