@@ -1,24 +1,32 @@
 name: CI
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup do NodeJS
         uses: actions/setup-node@v2.5.2
-        with: 
+        with:
           node-version: 16.13.2
-          
+
       - name: Instalação do Mocha
-        run:
-          cd src;
+        run: cd src;
           npm install -g mocha;
           npm install
-          
+
       - name: Execução do teste
-        run:
-          mocha src/test/convert.js
+        run: mocha src/test/convert.js
+
+      - name: Contrução da imagem Docker
+        uses: docker/build-push-action@v4.0.0
+        with:
+          context: ./src
+          file: ./src/Dockerfile
+          push: true
+          tags: |
+            samyllasr/aula-conversao-temperatura:v1
+            samyllasr/aula-conversao-temperatura:latest
